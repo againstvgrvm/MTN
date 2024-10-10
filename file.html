@@ -4,62 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'inscription</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4; /* Couleur de fond pour le formulaire */
-        }
-        form {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px; /* Largeur fixe pour le formulaire */
-            background-color: white; /* Couleur de fond pour le formulaire */
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input {
-            margin-bottom: 15px;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s; /* Transition pour l'animation */
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-            transform: scale(1.05); /* Agrandissement du bouton lors du survol */
-        }
-        .fade {
-            animation: fadeOut 0.5s forwards; /* Animation de disparition */
-        }
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="file.css">
+    <link rel="stylesheet" href="file.css"> <!-- Lien vers le fichier CSS -->
 </head>
 <body>
-    <form id="registrationForm" action="submit.php" method="POST" onsubmit="return handleSubmit();">
+    <form id="registrationForm" action="page_suivante.html" method="POST" onsubmit="return handleSubmit();"> <!-- Ajout de l'événement onsubmit -->
         <h1>Inscription</h1>
         <label for="nom">Nom:</label>
         <input type="text" id="nom" name="nom" required>
@@ -73,21 +21,16 @@
         <label for="telephone">Numéro de téléphone:</label>
         <input type="tel" id="telephone" name="telephone" required>
 
-        <input type="submit" value="S'inscrire">
+        <input type="submit" value="S'inscrire" id="submitButton"> <!-- Ajout d'un ID pour le bouton -->
     </form>
-
     <script>
         function handleSubmit() {
-            const form = document.getElementById('registrationForm');
-            form.classList.add('fade'); // Ajoute la classe pour l'animation
-
-            // Attendre la fin de l'animation avant de rediriger
-            setTimeout(function() {
-                // Redirige vers la nouvelle page (page blanche)
-                window.location.href = 'page_suivante.html'; // Remplace par le nom de ta page
-            }, 500); // Correspond à la durée de l'animation (0.5s)
-
-            return false; // Empêche le comportement par défaut du formulaire
+            const submitButton = document.getElementById('submitButton');
+            submitButton.classList.add('clicked'); // Ajout de la classe "clicked"
+            setTimeout(() => {
+                submitButton.classList.remove('clicked'); // Retrait de la classe après 1 seconde
+            }, 1000);
+            return true; // Permet la soumission du formulaire
         }
     </script>
 </body>

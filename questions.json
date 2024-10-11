@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "question": "Qu'est-ce que le phishing?",
+      "subquestions": [
+        "Définis le phishing.",
+        "Quels sont les signes d'un email de phishing?",
+        "Comment se protéger du phishing?"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Qu'est-ce que le ransomware?",
+      "subquestions": [
+        "Explique ce qu'est un ransomware.",
+        "Comment un ransomware se propage-t-il?",
+        "Quels sont les moyens de se protéger contre un ransomware?"
+      ]
+    }
+  ]
+  

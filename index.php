@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="file.css"> <!-- Lien vers le fichier CSS -->
 </head>
 <body>
-    <form id="registrationForm" action="page_suivante.html" method="POST" onsubmit="return handleSubmit();"> <!-- Ajout de l'événement onsubmit -->
+    <form id="registrationForm" action="submit.php" method="POST" onsubmit="return handleSubmit();"> <!-- Ajout de l'événement onsubmit -->
         <h1>Inscription</h1>
         <label for="nom">Nom:</label>
         <input type="text" id="nom" name="nom" required>

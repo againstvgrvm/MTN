@@ -1,11 +1,14 @@
 <?php
 // Connexion à la base de données (ajuste les paramètres de connexion)
 $servername = "localhost";
-$username = "ton_utilisateur";
-$password = "ton_mot_de_passe";
-$dbname = "nom_de_la_base_de_donnees";
+$username = "root"; // Par défaut pour MAMP
+$password = "root"; // Par défaut pour MAMP
+$dbname = "nom_de_la_base_de_donnees"; // Remplace par le nom de ta base de données
 
+// Créer une connexion
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifier la connexion
 if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
@@ -29,9 +32,6 @@ if ($conn->query($sql) === TRUE) {
                 fwrite($file, $data);
             }
             fclose($file);
-            echo "Fichier utilisateurs.txt créé avec succès.";
-        } else {
-            echo "Impossible de créer le fichier utilisateurs.txt.";
         }
     }
 

@@ -3,33 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page HTML</title>
+    <title>Questions aléatoires</title>
     <link rel="stylesheet" href="file.css">
+    <style>
+        .question-container {
+            margin-bottom: 20px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .question-container h2 {
+            margin-bottom: 10px;
+        }
+        .question-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .question-container li {
+            margin-bottom: 10px;
+        }
+        .question-container input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue sur ma page</h1>
-    <p>Ceci est un exemple de page HTML.</p>
-
+    <h1>Questions aléatoires</h1>
+    <form action="submit_answers.php" method="POST">
     <?php
-    // Lire le fichier JSON et le décoder
-    $json = file_get_contents('questions.json');
-    $questions = json_decode($json, true);
+    // Connexion à la base de données
+    $servername = "localhost";
+    $username = "root"; // Nom d'utilisateur par défaut de MAMP
+    $password = "root"; // Mot de passe par défaut de MAMP
+    $dbname = "nom_de_la_base_de_donnees"; // Remplace par le nom de ta base de données
 
-    // Mélanger les questions et en sélectionner un nombre limité
-    shuffle($questions);
-    $selectedQuestions = array_slice($questions, 0, 10);
+    // Créer une connexion
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Afficher les questions et sous-questions
-    foreach ($selectedQuestions as $question) {
-        echo '<div class="question-container">';
-        echo '<h2>' . $question['question'] . '</h2>';
-        echo '<ul>';
-        foreach ($question['subquestions'] as $subquestion) {
-            echo '<li>' . $subquestion . '</li>';
-        }
-        echo '</ul>';
-        echo '</div>';
+    // Vérifier la connexion
+    if ($conn->connect_error) {
+        die("Échec de la connexion : " . $conn->connect_error);
     }
+
+    // Récupérer des questions aléatoires
+    $sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 10";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Afficher les questions
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="question-container">';
+            echo '<h2>' . $row['question_no'] . '. ' . $row['question'] . '</h2>';
+            echo '<ul>';
+            echo '<li><input type="radio" name="question' . $row['id'] . '" value="' . $row['opt1'] . '">' . $row['opt1'] . '</li>';
+            echo '<li><input type="radio" name="question' . $row['id'] . '" value="' . $row['opt2'] . '">' . $row['opt2'] . '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+    } else {
+        echo "Aucune question trouvée.";
+    }
+
+    $conn->close();
     ?>
+    <input type="submit" value="Soumettre">
+    </form>
 </body>
 </html>
